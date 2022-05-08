@@ -1,33 +1,39 @@
-N = 10000;
+clear all;
+clc
+
+N = 100000;
 tmax = 0.5;
 fs = N/tmax;
 t = (1:N)/fs;
-omega = 1e3*2*pi;
+t1 = t;
+t2 = t;
 
-temp = sin(rand(1,N)*2*pi)+1;
-mean(temp)
-var(temp)
+mu = 10;
+sig = 2;
 
-a = 0;
-b = 2*pi;
-m = -1;
-M = 1;
+p = @(x)normpdf(x,mu,sig);
 
-xy = unifrnd(0,1,[2,N]);
-x = xy(1,:);
-y = xy(2,:);
+temp = normrnd(mu,sig,1,N);
+a = min(temp)-3*sig;
+b = max(temp)+3*sig;
 
-E_x = zeros(1,N);
-Var_x = zeros(1,N);
-for i = 1:N
-    f = (sin(omega*t(i) + (a + (b-a)*x)))/(2*pi) / (1/pi);
-    n0 = sum(y<f);
-    E_x(i) = (1/pi)*(2*pi)*n0/N + 0;
-    
-    f = (sin(omega*t(i) + x*2*pi)).^2/(2*pi) / (2/pi);
-    n0 = sum(y<f);
-    Var_x(i) = (2/pi)*(2*pi)*n0/N + 0 - E_x.^2;
-end
+f_ex = @(x)x.*p(x);
+mx = mcIntxy(f_ex,N,a,b);
 
-C
-for i = 
+f_var = @(x)(x-mx).^2.*p(x);
+varx = mcIntxy(f_var,N,a,b);
+
+
+% 协方差，当t1 neq t2时，我们可以得到
+f_Cx = @(x1,x2)(x1-mx).*(x2-mx).*normpdf(x1,mu,sig).*normpdf(x2,mu,sig);
+Cx = mcIntxyz(f_Cx,N,a,b,a,b)
+% 当t1 = t2时，我们有 x1 = x2，一定成立
+f_Cx = @(x)(x-mx).^2.*p(x); % 与f_var相等
+Cx = mcIntxy(f_Cx,N,a,b)
+
+% 相关函数，当t1 neq t2时，我们可以得到
+f_Rx = @(x1,x2)x1.*x2.*p(x1).*p(x2);
+Rx = mcIntxyz(f_Rx,N,a,b,a,b)
+% 当t1 = t2时，我们有 x1 = x2，一定成立
+f_Rx = @(x)x.^2.*p(x);
+Rx = mcIntxy(f_Rx,N,a,b)
