@@ -1,10 +1,13 @@
+clear all
+clc
+
 N = 20000;
 maxlag = 10000;
 
 x = exprnd(0.5,N,1);
 
-mean(x)
-var(x)
+mu = mean(x)
+myvar = var(x)
 figure(1);
 [f,xi]=ksdensity(x);
 plot(xi,f);
@@ -24,5 +27,10 @@ G_X_1 = fftshift(abs(fft(R_x)));
 % 对自相关函数进行傅里叶变换可以得到其功率谱密度，但是由于其自相关函数中的直流分量导致在0频率出有一个冲击函数
 % 为了让图片更加清晰，我们将靠近0频的部分进行了去除
 figure(3);
+subplot(2,1,1)
+plot(G_X_1)
+xlim([0,2e4])
 G_X_1(round((1+end)/2-10:round((1+end)/2+10))) = 0;
+subplot(2,1,2)
 plot(G_X_1);
+xlim([0,2e4])
