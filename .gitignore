@@ -29,3 +29,8 @@ codegen/
 
 # Octave session info
 octave-workspace
+
+# word docs
+~$*.doc
+~$*.docx
+~*.tmp
