@@ -1,7 +1,12 @@
+clear all;
+clc
+
 N = 200;
 maxlag = 100;
-x = normrnd(0,3,N,1);
+x = normrnd(0,3,1,N);
 
+mu = mean(x)
+myvar = var(x)
 
 figure(1)
 [f,xi]=ksdensity(x); % 使用ksdensity估计概率密度

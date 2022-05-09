@@ -4,7 +4,7 @@ maxlag = 10000;
 x = poissrnd(1.0,N,1);
 
 mu = mean(x)
-var = var(x)
+myvar = var(x)
 
 figure(1);
 [n,edges] = histcounts(x);
@@ -28,6 +28,8 @@ G_X_1 = fftshift(abs(fft(R_x)));
 % 为了让图片更加清晰，我们将靠近0频的部分进行了去除
 subplot(2,1,1);
 plot(G_X_1);
+xlim([0,2e4])
 G_X_1(round((1+end)/2-10:round((1+end)/2+10))) = 0;
 subplot(2,1,2);
 plot(G_X_1);
+xlim([0,2e4])
