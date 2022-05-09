@@ -3,12 +3,13 @@ N = 20000;
 maxlag = 10000;
 x = poissrnd(1.0,N,1);
 
-mean(x)
-var(x)
+mu = mean(x)
+var = var(x)
 
 figure(1);
-[N,edges] = histcounts(x);
-histogram(x); % 使用直方图画离散随机变量的分布
+[n,edges] = histcounts(x);
+n = n/N;
+histogram(x,'Normalization','pdf'); % 使用直方图画离散随机变量的分布
 
 %{
 这里之所以除了正态分布之外，没有在其他位置直接变为0，而是形成了一个近似三角形的一个区域；

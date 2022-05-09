@@ -19,7 +19,7 @@ plot(xi,f);
 figure(2);
 plot(lags,R_x);
 
-G_X_1 = fftshift(abs(fft(R_x)))
+G_X_1 = fftshift(abs(fft(R_x)));
 % 对自相关函数进行傅里叶变换可以得到其功率谱密度，但是由于其自相关函数中的直流分量导致在0频率出有一个冲击函数
 % 为了让图片更加清晰，我们将靠近0频的部分进行了去除
 G_X_1(round((1+end)/2-10:round((1+end)/2+10))) = 0;
