@@ -9,6 +9,9 @@ t = (0:N-1)*(1/fs);
 
 x = sin(1e3*2*pi*t)+sin(2e3*2*pi*t)+normrnd(0,1,1,N);
 
+figure(10)
+plotMany(x,t,N,fs);
+
 %wp和ws分别是通带和阻带的频率(截止频率)。当wp和ws为二元矢量时，为带通或带阻滤波器，这时求出的Wn也是二元矢量；当wp和ws为一元矢量时，为低通或高通滤波器：当wp<ws时为低通滤波器，当wp>ws时为高通滤波器。
 %wp和ws为二元矢量
 wp = [900/(fs/2),1100/(fs/2)];                %设置通带频率，注意进行归一化
@@ -33,6 +36,10 @@ x_a=filter(b1,a1,x);                 % 经过低通滤波器之后的时域波�
 % 滤波器相关的部分
 figure(1)
 freqz(b1,a1,N,fs);                % 求滤波器的幅频特性
+subplot(2,1,1)
+xlim([0 2500])
+subplot(2,1,2)
+xlim([0 2500])
 figure(2)
 impz(b1,a1);                      % 滤波器的单位冲击响应
 
@@ -57,6 +64,10 @@ fprintf('巴特沃斯滤波器 N= %4d\n',n);    %显示滤波器阶数
 % 滤波器相关的部分
 figure(4)
 freqz(b2,a2,N,fs);                % 求滤波器的幅频特性
+subplot(2,1,1)
+xlim([1000 3000])
+subplot(2,1,2)
+xlim([1000 3000])
 figure(5)
 impz(b2,a2);                      % 滤波器的单位冲击响应
 

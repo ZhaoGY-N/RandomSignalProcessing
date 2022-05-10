@@ -19,7 +19,6 @@ x2_mean = mean(x.^2); % 均方值
 X = fft(x); % 频谱
 G_x = fft(R_x); % 功率谱密度
 
-
 %wp和ws分别是通带和阻带的频率(截止频率)。当wp和ws为二元矢量时，为带通或带阻滤波器，这时求出的Wn也是二元矢量；当wp和ws为一元矢量时，为低通或高通滤波器：当wp<ws时为低通滤波器，当wp>ws时为高通滤波器。
 
 %wp和ws为二元矢量
@@ -75,6 +74,10 @@ plotMany(x_a,t,N,fs);
 % 滤波器相关的部分
 figure(6)
 freqz(b,a,N,fs);                % 求滤波器的幅频特性
+subplot(2,1,1)
+xlim([1000 3000])
+subplot(2,1,2)
+xlim([1000 3000])
 figure(7)
 impz(b,a);                      % 滤波器的单位冲击响应
 
@@ -86,7 +89,7 @@ plotMany(y_1,t,N,fs);
 figure(4)
 plotMany(x_b,t,N,fs);
 
-% 显示Y_1的原始波形，自相关函数，频谱(幅度谱)，功率谱密度
+% 显示Y_2的原始波形，自相关函数，频谱(幅度谱)，功率谱密度
 figure(5)
 [mymean,mymeanSq,myvar] = plotMany(y_2,t,N,fs);
 
